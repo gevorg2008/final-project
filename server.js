@@ -2,6 +2,9 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var fs = require("fs")
+
+let PORT = process.env.PORT || 3000
 
 app.use(express.static("."));
 app.get('/', function (req, res) {
@@ -65,5 +68,14 @@ function game(){
 
     io.sockets.emit("data", sendData);
 }
+
+var statistics = {}
+
+setInterval(function () {
+    statistics.grass = grassArr.length;
+    statistics.grassEater = grassEaterArr.length;
+    fs.writeFile("statistics.json", JSON.stringify(statistics), function () {
+    })
+}, 1000)
 
 setInterval(game, 1000)
