@@ -12,23 +12,24 @@ server.listen(3000);
 
 matrix = []
 
-var grassArr = [];
-var grassEaterArr = [];
+grassArr = [];
+grassEaterArr = [];
 
 var Grass = require("./modules/Grass.js")
 var GrassEater = require("./modules/GrassEater.js")
 
 function createMatrix(){
     for(let i = 0; i < 30; i++){
-        matrix.push([])
+        matrix[i] = [] 
         for(let m = 0; m < 30; m++){
-            matrix[i].push(0)
+            matrix[i][m] = 0
         }
     }
 }
 
 io.on("connection", function(socket){
     socket.on("createGrass", createGrass)
+    socket.on("kill", kill)
 })
 
 createMatrix()
@@ -42,6 +43,12 @@ function createGrass(){
         grassArr.push(gr)
         matrix[y][x] = 1
     }
+}
+
+function kill(){
+    grassArr = []
+    grassEaterArr = []
+    createMatrix()
 }
 
 function game(){

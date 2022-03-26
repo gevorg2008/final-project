@@ -30,3 +30,6 @@ function createGrass(){
     socket.emit("createGrass")
 }
 
+function kill(){
+    socket.emit("kill")
+}
