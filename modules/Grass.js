@@ -6,7 +6,6 @@ module.exports = class Grass extends LiveForm{
         this.multiply++;
         let emptyCell = super.chooseCell(0);
         let newCell = emptyCell[Math.floor(Math.random() * emptyCell.length)]
-        console.log(newCell)
 
 
         if(newCell && this.multiply <= 8){
