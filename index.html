@@ -5,13 +5,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      canvas {
+        margin-top: 50px;
+      }
+      .buttons {
+        display: flex;
+        justify-content: center;
+      }
+      button {
+        margin-left: 10px;
+        border: 1px solid black;
+        width: 100px;
+        height: 30px;
+      }
+      #grass {
+        background-color: green;
+        border-color: rgb(5, 71, 5);
+      }
+      #grassEater {
+        background-color: rgb(255, 255, 0);
+        border-color: rgb(237, 211, 8);
+      }
+      #Predator {
+        background-color: rgb(255, 39, 39);
+        border-color: rgb(182, 3, 3);
+      }
+      #Water {
+        background-color: rgb(51, 51, 254);
+        border-color: rgb(2, 9, 198);
+      }
+      #kill {
+        background-color: black;
+        border-color: rgb(30, 30, 30);
+        color: white;
+      }
+    </style>
   </head>
   <body>
-    <button onclick="createGrass()">Grass</button>
-    <button onclick="createGrassEater()">GrassEater</button>
-    <button onclick="createPredator()">Predator</button>
-    <button onclick="createWater()">Water</button>
-    <button onclick="kill()">Kill all</button><br>
+    <div class="buttons">
+      <button id="grass" onclick="createGrass()">Grass</button>
+      <button id="grassEater" onclick="createGrassEater()">GrassEater</button>
+      <button id="Predator" onclick="createPredator()">Predator</button>
+      <button id="Water" onclick="createWater()">Water</button>
+      <button id="lightning" onclick="Lightning_Cr()">Lightning</button>
+      <button onclick="createBomb()">Bomb</button>
+      <button id="kill" onclick="kill()">Kill all</button><br />
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
     <script src="index.js"></script>

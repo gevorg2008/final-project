@@ -3,6 +3,7 @@ var app = express();
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
 var fs = require("fs");
+let side = 30;
 
 let PORT = process.env.PORT || 3000;
 
@@ -20,6 +21,7 @@ grassEaterArr = [];
 PredatorArr = [];
 WaterArr = [];
 IceArr = [];
+bombArr = [];
 
 wheater = "winter";
 
@@ -41,7 +43,8 @@ setInterval(cheangeWheat, 5000);
 var Grass = require("./modules/Grass.js");
 var GrassEater = require("./modules/GrassEater.js");
 var Predator = require("./modules/Predator.js");
- Water = require("./modules/Water.js");
+Water = require("./modules/Water.js");
+var Bomb = require("./modules/bomb");
 
 function createMatrix() {
   for (let i = 0; i < 30; i++) {
@@ -57,6 +60,7 @@ io.on("connection", function (socket) {
   socket.on("createGrassEater", createGrassEater);
   socket.on("createPredator", createPredator);
   socket.on("createWater", createWater);
+  socket.on("createBomb", createBomb);
   socket.on("kill", kill);
 });
 
@@ -66,7 +70,6 @@ function createGrass() {
   let x = Math.floor(Math.random() * 30);
   let y = Math.floor(Math.random() * 30);
   if (matrix[x][y] == 0) {
-    console.log(x, y);
     let gr = new Grass(x, y);
     grassArr.push(gr);
     matrix[y][x] = 1;
@@ -78,7 +81,6 @@ function createWater() {
   let x = Math.floor(Math.random() * 30);
   let y = Math.floor(Math.random() * 30);
   if (matrix[x][y] == 0) {
-    console.log(x, y);
     let gr = new Water(x, y);
     WaterArr.push(gr);
     matrix[y][x] = 5;
@@ -86,11 +88,15 @@ function createWater() {
     createWater();
   }
 }
+function createBomb() {
+  let x = Math.floor(Math.random() * 30);
+  let y = Math.floor(Math.random() * 30);
+  matrix[y][x] = 4;
+}
 function createGrassEater() {
   let x = Math.floor(Math.random() * 30);
   let y = Math.floor(Math.random() * 30);
   if (matrix[x][y] == 0 || matrix[x][y] == 1) {
-    console.log(x, y);
     let gr = new GrassEater(x, y);
     grassEaterArr.push(gr);
     matrix[y][x] = 2;
@@ -102,11 +108,15 @@ function createPredator() {
   let x = Math.floor(Math.random() * 30);
   let y = Math.floor(Math.random() * 30);
   if (matrix[x][y] == 0 || matrix[x][y] == 1 || matrix[x][y] == 2) {
-    console.log(x, y);
     let gr = new Predator(x, y);
     PredatorArr.push(gr);
     matrix[y][x] = 3;
   }
+}
+function createLigthing() {
+  let x = Math.floor(Math.random() * 30);
+  let y = Math.floor(Math.random() * 30);
+  matrix[y][x] = 0;
 }
 
 function kill() {
@@ -117,22 +127,25 @@ function kill() {
 }
 
 function game() {
-  if (grassArr[0] != undefined) {
-    for (let i in grassArr) {
-      grassArr[i].mul();
-    }
-  }
-  for (let i in grassEaterArr) {
-    grassEaterArr[i].eat();
+  for (let i in grassArr) {
+    grassArr[i].mul();
   }
   for (let i in WaterArr) {
     WaterArr[i].everyTime();
   }
+  if (wheater != "winter") {
+    for (let i in grassEaterArr) {
+      grassEaterArr[i].eat();
+    }
+    for (let i in PredatorArr) {
+      PredatorArr[i].eat();
+    }
+  }
   for (let i in IceArr) {
     IceArr[i].everyTime();
   }
-  for (let i in PredatorArr) {
-    PredatorArr[i].eat();
+  for (let i in bombArr) {
+    bombArr[i].boom();
   }
 
   let sendData = {

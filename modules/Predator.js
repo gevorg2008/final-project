@@ -38,7 +38,7 @@ module.exports = class Predator extends LiveForm {
     }
   }
   eat() {
-    let emptyCells3 = this.chooseCell(1);
+    let emptyCells3 = this.chooseCell(6);
     let newCell3 = emptyCells3[Math.floor(Math.random() * emptyCells3.length)];
     if(newCell3) {
       this.Freeze()
@@ -49,7 +49,7 @@ module.exports = class Predator extends LiveForm {
       let emptyCells2 = this.chooseCell(5);
       let newCell2 = emptyCells2[Math.floor(Math.random() * emptyCells2.length)];
       let emptyCells1 = this.chooseCell(2);
-      let newCell1 =
+      let newCell1 = emptyCells1[Math.floor(Math.random() * emptyCells1.length)]
         emptyCells1[Math.floor(Math.random() * emptyCells1.length)];
 
       if (newCell2) {
@@ -99,7 +99,10 @@ module.exports = class Predator extends LiveForm {
       }
     }
     else{
-
+      this.freezeTime--
+      if(this.freezeTime <= 0){
+        this.unFreeze()
+      }
     }
   }
   move() {
@@ -137,8 +140,20 @@ module.exports = class Predator extends LiveForm {
     }
   }
   Freeze() {
-    this.can == false;
-    this.freezeTime = 10
-    matrix[this.y][this.y] = 7
+    this.can = false;
+    this.freezeTime = 4
+    matrix[this.y][this.x] = 7
+  }
+  unFreeze(){
+    this.can = true
+    matrix[this.y][this.x] = 3
+  }
+  Fire(){
+    for (let i in FireArr) {
+      if (FireArr[i].x == this.x && FireArr[i].y == this.y) {
+        FireArr[i].energy--;
+      }
+    }
+    this.die()
   }
 };
