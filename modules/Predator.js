@@ -1,12 +1,11 @@
 let LiveForm = require("./LivingForm");
-const Water = require("./Water");
 
 module.exports = class Predator extends LiveForm {
   constructor(x, y) {
     super(x, y);
     this.energy = 10;
     this.can = true;
-    this.freezeTime = 0
+    this.freezeTime = 0;
   }
   getNewCoordinates() {
     this.directions = [
@@ -40,18 +39,27 @@ module.exports = class Predator extends LiveForm {
   eat() {
     let emptyCells3 = this.chooseCell(6);
     let newCell3 = emptyCells3[Math.floor(Math.random() * emptyCells3.length)];
-    if(newCell3) {
-      this.Freeze()
+    if (newCell3) {
+      this.Freeze();
     }
     if (this.can == true) {
       let emptyCells = this.chooseCell(1);
       let newCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
       let emptyCells2 = this.chooseCell(5);
-      let newCell2 = emptyCells2[Math.floor(Math.random() * emptyCells2.length)];
+      let newCell2 =
+        emptyCells2[Math.floor(Math.random() * emptyCells2.length)];
       let emptyCells1 = this.chooseCell(2);
-      let newCell1 = emptyCells1[Math.floor(Math.random() * emptyCells1.length)]
+      let newCell1 =
         emptyCells1[Math.floor(Math.random() * emptyCells1.length)];
-
+      let emptyCells4 = this.chooseCell(9);
+      let newCell4 =
+        emptyCells4[Math.floor(Math.random() * emptyCells4.length)];
+      if (newCell4) {
+        this.die()
+        matrix[this.y][this.x] = 9
+        let ice = new Virus(this.x, this.y)
+        VirusArr.push(ice)
+      }
       if (newCell2) {
         this.drinkWater();
       }
@@ -91,17 +99,16 @@ module.exports = class Predator extends LiveForm {
         this.x = x;
         this.y = y;
 
-        if (this.energy >= 15) {
+        if (this.energy >= 15 && wheater != "winter") {
           this.mul();
         }
       } else {
         this.move();
       }
-    }
-    else{
-      this.freezeTime--
-      if(this.freezeTime <= 0){
-        this.unFreeze()
+    } else {
+      this.freezeTime--;
+      if (this.freezeTime <= 0) {
+        this.unFreeze();
       }
     }
   }
@@ -141,19 +148,11 @@ module.exports = class Predator extends LiveForm {
   }
   Freeze() {
     this.can = false;
-    this.freezeTime = 4
-    matrix[this.y][this.x] = 7
+    this.freezeTime = 4;
+    matrix[this.y][this.x] = 7;
   }
-  unFreeze(){
-    this.can = true
-    matrix[this.y][this.x] = 3
-  }
-  Fire(){
-    for (let i in FireArr) {
-      if (FireArr[i].x == this.x && FireArr[i].y == this.y) {
-        FireArr[i].energy--;
-      }
-    }
-    this.die()
+  unFreeze() {
+    this.can = true;
+    matrix[this.y][this.x] = 3;
   }
 };

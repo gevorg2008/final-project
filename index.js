@@ -2,7 +2,6 @@ var matrix;
 var socket = io();
 var gr_btn = document.getElementById("grass_btn");
 var wheater = "";
-let Lightning;
 
 function setup() {
   let side = 30;
@@ -14,6 +13,7 @@ function setup() {
   });
 
   function drawGame(data) {
+    console.log(data);
     matrix = data.matrix;
     createCanvas(matrix[0].length * side + 1, matrix.length * side + 1);
     background("#8a8a8a");
@@ -29,7 +29,7 @@ function setup() {
           } else if (wheater == "summer") {
             fill("green");
           } else if (wheater == "autumn") {
-            fill("#ccff00");
+            fill("#def25c");
           }
         } else if (matrix[i][m] == 2) {
           fill("yellow");
@@ -43,6 +43,11 @@ function setup() {
           fill("#ff6666");
         } else if (matrix[i][m] == 4) {
           fill("black");
+        }else if (matrix[i][m] == 8) {
+          fill("#f8ff91")
+        }
+        else if (matrix[i][m] == 9) {
+          fill("purple")
         }
         rect(m * side, i * side, side, side);
       }
@@ -62,6 +67,9 @@ function setup() {
 function createGrass() {
   socket.emit("createGrass");
 }
+function createVirus() {
+  socket.emit("createVirus");
+}
 function createGrassEater() {
   socket.emit("createGrassEater");
 }
@@ -72,7 +80,7 @@ function createWater() {
   socket.emit("createWater");
 }
 
-function Lightning_Cr() {
+function Lightning() {
   socket.emit("createLigthing");
 }
 function createBomb() {
