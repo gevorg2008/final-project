@@ -17,7 +17,7 @@ server.listen(3000);
 matrix = [];
 
 grassArr = [];
-poisGrassArr = []
+poisGrassArr = [];
 grassEaterArr = [];
 PredatorArr = [];
 WaterArr = [];
@@ -47,7 +47,7 @@ var GrassEater = require("./modules/GrassEater.js");
 var Predator = require("./modules/Predator.js");
 Water = require("./modules/Water.js");
 var Bomb = require("./modules/bomb");
-Virus = require("./modules/Virus")
+Virus = require("./modules/Virus");
 
 function createMatrix() {
   for (let i = 0; i < 30; i++) {
@@ -213,6 +213,7 @@ setInterval(function () {
   statistics.Predator = PredatorArr.length;
   statistics.Water = WaterArr.length;
   statistics.bomb = bombArr.length;
+  statistics.Virus = VirusArr.length;
   fs.writeFile("statistics.json", JSON.stringify(statistics), function () {});
 }, 1000);
 

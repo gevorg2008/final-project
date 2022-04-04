@@ -40,6 +40,15 @@
         border-color: rgb(30, 30, 30);
         color: white;
       }
+      #virus {
+        background-color: rgb(183, 0, 255);
+        border-color: purple;
+      }
+      #bomb{
+        background-color: rgb(0, 0, 0);
+        border-color: rgb(58, 58, 59);
+        color: white;
+      }
     </style>
   </head>
   <body>
@@ -49,10 +58,11 @@
       <button id="Predator" onclick="createPredator()">Predator</button>
       <button id="Water" onclick="createWater()">Water</button>
       <button id="lightning" onclick="Lightning()">Lightning</button>
-      <button onclick="createBomb()">Bomb</button>
-      <button onclick="createVirus()">Virus</button>
-      <button id="kill" onclick="kill()">Kill all</button><br>
-    </div><br />
+      <button id="bomb" onclick="createBomb()">Bomb</button>
+      <button id="virus" onclick="createVirus()">Virus</button>
+      <button id="kill" onclick="kill()">Kill all</button><br />
+    </div>
+    <br />
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
     <script src="index.js"></script>

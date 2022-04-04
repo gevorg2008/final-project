@@ -54,12 +54,7 @@ module.exports = class Predator extends LiveForm {
       let emptyCells4 = this.chooseCell(9);
       let newCell4 =
         emptyCells4[Math.floor(Math.random() * emptyCells4.length)];
-      if (newCell4) {
-        this.die()
-        matrix[this.y][this.x] = 9
-        let ice = new Virus(this.x, this.y)
-        VirusArr.push(ice)
-      }
+
       if (newCell2) {
         this.drinkWater();
       }
@@ -102,6 +97,8 @@ module.exports = class Predator extends LiveForm {
         if (this.energy >= 15 && wheater != "winter") {
           this.mul();
         }
+      } else if (newCell4) {
+        this.die();
       } else {
         this.move();
       }
