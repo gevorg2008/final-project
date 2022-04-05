@@ -29,7 +29,7 @@ function setup() {
           } else if (wheater == "summer") {
             fill("green");
           } else if (wheater == "autumn") {
-            fill("#def25c");
+            fill("#e5ff00");
           }
         } else if (matrix[i][m] == 2) {
           fill("yellow");
